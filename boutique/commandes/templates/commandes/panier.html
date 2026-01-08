@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block content %}
+<h1>Votre Panier</h1>
+{% if commande and commande.produits.all %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for produit in commande.produits.all %}
+        <tr>
+            <td>{{ produit.nom }}</td>
+            <td>{{ produit.prix|fcfa }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'valider_commande' %}" class="btn btn-success">Valider la commande</a>
+{% else %}
+<p>Votre panier est vide.</p>
+{% endif %}
+<a href="{% url 'liste_produits' %}" class="btn btn-secondary mt-3">Retour aux produits</a>
+{% endblock %}

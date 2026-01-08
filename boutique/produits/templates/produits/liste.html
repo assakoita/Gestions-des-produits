@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block content %}
+<h1 class="mb-4">Nos Produits</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for produit in produits %}
+  <div class="col">
+    <div class="card h-100">
+      {% if produit.image %}
+      <img src="{{ produit.image.url }}" class="card-img-top" alt="{{ produit.nom }}">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ produit.nom }}</h5>
+        <p class="card-text">{{ produit.description|truncatechars:80 }}</p>
+        <p class="card-text"><strong>{{ produit.prix|fcfa }}</strong></p>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <a href="{% url 'ajouter_commande' produit.id %}" class="btn btn-primary btn-sm">Ajouter au panier</a>
+        {% if user.is_staff %}
+        <div>
+          <a href="{% url 'modifier_produit' produit.id %}" class="btn btn-warning btn-sm">Modifier</a>
+          <form method="post" action="{% url 'supprimer_produit' produit.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm"
+              onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

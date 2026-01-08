@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block content %}
+<h1 class="mb-4 text-center">Bienvenue dans notre Boutique</h1>
+
+{% if produits %}
+<div id="carouselProduits" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for produit in produits %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      {% if produit.image %}
+      <img src="{{ produit.image.url }}" class="d-block w-100" style="height: 400px; object-fit: cover;"
+        alt="{{ produit.nom }}">
+      {% else %}
+      <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Image manquante">
+      {% endif %}
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+        <h5>{{ produit.nom }}</h5>
+        <p>{{ produit.description|truncatechars:100 }}</p>
+        <p><strong>{{ produit.prix|fcfa }}</strong></p>
+        <a href="{% url 'ajouter_commande' produit.id %}" class="btn btn-primary btn-sm">Ajouter au panier</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselProduits" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Précédent</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselProduits" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Suivant</span>
+  </button>
+</div>
+{% else %}
+<p>Aucun produit disponible pour le moment.</p>
+{% endif %}
+
+<h2 class="mb-3">Tous les Produits</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for produit in produits %}
+  <div class="col">
+    <div class="card h-100">
+      {% if produit.image %}
+      <img src="{{ produit.image.url }}" class="card-img-top" alt="{{ produit.nom }}"
+        style="height:200px; object-fit:cover;">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ produit.nom }}</h5>
+        <p class="card-text">{{ produit.description|truncatechars:80 }}</p>
+        <p class="card-text"><strong>{{ produit.prix|fcfa }}</strong></p>
+      </div>
+      <div class="card-footer">
+        <a href="{% url 'ajouter_commande' produit.id %}" class="btn btn-primary btn-sm">Ajouter au panier</a>
+        {% if user.is_staff %}
+        <a href="{% url 'modifier_produit' produit.id %}" class="btn btn-warning btn-sm">Modifier</a>
+        <form method="post" action="{% url 'supprimer_produit' produit.id %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm"
+            onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

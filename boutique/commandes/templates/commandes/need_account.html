@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body text-center">
+        <h3 class="card-title mb-3">Pour finaliser votre commande</h3>
+        <p class="mb-4">Vous devez avoir un compte pour valider une commande.</p>
+
+        <div class="d-flex justify-content-center gap-2">
+          <a href="{% url 'inscription' %}?next={{ next }}" class="btn btn-success">Créer un compte</a>
+          <a href="{% url 'connexion' %}?next={{ next }}" class="btn btn-primary">Se connecter</a>
+        </div>
+
+        <hr class="my-4">
+        <p class="text-muted small">Si vous ne souhaitez pas créer de compte maintenant, vous pouvez continuer à parcourir les produits et revenir plus tard.</p>
+        <a href="{% url 'liste_produits' %}" class="btn btn-secondary mt-2">Retour aux produits</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

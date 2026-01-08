@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title mb-3">Inscription</h3>
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {% if next %}
+                                <input type="hidden" name="next" value="{{ next }}">
+                            {% endif %}
+                            <div class="mb-3">
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
+                                {% for error in form.username.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.password1.label_tag }}
+                                {{ form.password1 }}
+                                {% for error in form.password1.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.password2.label_tag }}
+                                {{ form.password2 }}
+                                {% for error in form.password2.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">S’inscrire</button>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
