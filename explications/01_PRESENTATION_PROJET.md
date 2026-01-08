@@ -1,6 +1,6 @@
 # 1. PRÉSENTATION DU PROJET
 
-## 1.1 C'est quoi ce projet ?
+ 1.1 C'est quoi ce projet ?
 
 C'est une **boutique en ligne** simple. Elle permet de :
 
@@ -11,7 +11,7 @@ C'est une **boutique en ligne** simple. Elle permet de :
 
 ---
 
-## 1.2 Comment sont organisés les dossiers ?
+## 1.2 Comment sont organisés mes dossiers ?
 
 ```
 GestionDesProduits/
