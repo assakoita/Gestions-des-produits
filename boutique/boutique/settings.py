@@ -15,9 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SÉCURITÉ
 # =========================
 SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-secret-key")
-
 DEBUG = os.environ.get("DEBUG", "False") == "True"
-
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 
@@ -80,7 +78,7 @@ WSGI_APPLICATION = 'boutique.wsgi.application'
 
 # =========================
 # DATABASE
-# (SQLite par défaut – compatible Render)
+# (SQLite par défaut, compatible Render)
 # =========================
 DATABASES = {
     "default": {
@@ -122,8 +120,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # =========================
 # LANGUE / TEMPS
 # =========================
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'fr-fr'
+TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_TZ = True
 
