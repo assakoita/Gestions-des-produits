@@ -4,6 +4,9 @@ Django settings for boutique project.
 
 from pathlib import Path
 import os
+import django_heroku
+django_heroku.settings(locals())
+
 
 # =========================
 # BASE DIR
