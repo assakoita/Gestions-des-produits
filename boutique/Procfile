@@ -1,1 +1,2 @@
-gunicorn GestionDesProduits.boutique.wsgi:application
+web: gunicorn boutique.wsgi:application
+
